@@ -9,16 +9,28 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.JEditorPane;
 
 public class Notas extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+	private JTextField textEscrito;
+	ArrayList<String> ListaNotas = new ArrayList<String>();
+	
+	
+
+	
 
 	/**
 	 * Launch the application.
@@ -51,20 +63,36 @@ public class Notas extends JFrame {
 		JLabel lblTitle = new JLabel("NOTAS");
 		lblTitle.setForeground(new Color(128, 0, 128));
 		lblTitle.setFont(new Font("Yu Gothic", Font.BOLD, 13));
-		lblTitle.setBounds(184, 10, 46, 22);
+		lblTitle.setBounds(184, 10, 126, 22);
 		contentPane.add(lblTitle);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(58, 62, 312, 84);
-		contentPane.add(textArea);
+	
+		textEscrito = new JTextField();
+		textEscrito.setBounds(60, 43, 342, 110);
+		contentPane.add(textEscrito);
+		textEscrito.setColumns(10);
 		
 		JButton btnGUARDAR = new JButton("GUARDAR");
+		btnGUARDAR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nota = textEscrito.getText();				
+				ListaNotas.add(nota);
+			
+				JOptionPane.showMessageDialog(null, "Se guardo tu nota");		
+			}
+		});
 		btnGUARDAR.setBackground(new Color(236, 217, 255));
 		btnGUARDAR.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnGUARDAR.setBounds(60, 170, 84, 20);
 		contentPane.add(btnGUARDAR);
 		
+		
+		
 		JButton btnBORRAR = new JButton("BORRAR");
+		btnBORRAR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textEscrito.setText("");
+			}
+		});
 		btnBORRAR.setBackground(new Color(236, 217, 255));
 		btnBORRAR.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnBORRAR.setBounds(286, 170, 84, 20);
@@ -75,7 +103,9 @@ public class Notas extends JFrame {
 		btnVOLVER.setFont(new Font("Tahoma", Font.ITALIC, 10));
 		btnVOLVER.setBounds(342, 233, 84, 20);
 		contentPane.add(btnVOLVER);
-
+		
+	
+		
 		
 	}
 }

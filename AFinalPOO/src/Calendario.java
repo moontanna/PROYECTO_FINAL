@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +20,7 @@ public class Calendario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	LocalDate hoy = LocalDate.now();
 
 	/**
 	 * Launch the application.
@@ -91,7 +93,7 @@ public class Calendario extends JFrame {
 			contentPane.add(comboBoxMES);
 			
 			JComboBox comboBoxANIO = new JComboBox();
-			comboBoxANIO.setModel(new DefaultComboBoxModel(new String[] {"2025", "2026", "2027", "2028", "2029", "2030"}));
+			comboBoxANIO.setModel(new DefaultComboBoxModel(new String[] {"2026", "2027", "2028", "2029", "2030"}));
 			comboBoxANIO.setBounds(318, 45, 52, 20);
 			contentPane.add(comboBoxANIO);
 			
@@ -115,6 +117,10 @@ public class Calendario extends JFrame {
 			comboBoxMINUTOS.setBounds(247, 107, 63, 20);
 			contentPane.add(comboBoxMINUTOS);
 			
+			comboBoxDIA.setSelectedIndex(hoy.getDayOfMonth()-3);
+			comboBoxMES.setSelectedIndex(hoy.getMonthValue()-1);
+			comboBoxANIO.setSelectedIndex(hoy.getYear()-2026);
+				
 			JList list = new JList();
 			list.setBounds(53, 153, 317, 70);
 			contentPane.add(list);
