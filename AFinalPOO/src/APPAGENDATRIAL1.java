@@ -84,7 +84,7 @@ public class APPAGENDATRIAL1 {
 			}
 		});
 		
-		JMenuItem mntmEscanear = new JMenuItem("ESCANEAR");
+		JMenuItem mntmEscanear = new JMenuItem("CARGAR IMAGEN");
 		mntmEscanear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Escanear c = new Escanear();

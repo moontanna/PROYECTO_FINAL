@@ -108,6 +108,7 @@ public class Calendario extends JInternalFrame {
 			comboBoxANIO.setBounds(318, 45, 52, 20);
 			contentPane.add(comboBoxANIO);
 			
+			
 			JTextField textField = new JTextField();
 			textField.setBounds(111, 76, 153, 18);
 			contentPane.add(textField);

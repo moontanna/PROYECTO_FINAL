@@ -53,7 +53,7 @@ public class Escanear extends JInternalFrame {
 	
 	public Escanear() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 239, 300);
+		setBounds(100, 100, 283, 353);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 221, 238));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,22 +64,23 @@ public class Escanear extends JInternalFrame {
 		
 		
 		JInternalFrame internalFrame = new JInternalFrame("New JInternalFrame");
-		internalFrame.setBounds(0, 0, 230, 264);
+		internalFrame.getContentPane().setBackground(new Color(255, 225, 240));
+		internalFrame.setBounds(-13, -28, 291, 351);
 		contentPane.add(internalFrame);
 		internalFrame.getContentPane().setLayout(null);
 		JButton btnSeleccionar = new JButton("SELECCIONAR IMAGEN");
-		btnSeleccionar.setBounds(8, 159, 190, 22);
+		btnSeleccionar.setBounds(52, 219, 173, 22);
 		internalFrame.getContentPane().add(btnSeleccionar);
-		btnSeleccionar.setBackground(new Color(236, 217, 255));
+		btnSeleccionar.setBackground(new Color(238, 221, 255));
 		btnSeleccionar.setFont(new Font("Yu Gothic", Font.BOLD, 12));
 		
 		 
 		guarda = new JLabel(".");
-		guarda.setBounds(45, 42, 110, 106);
+		guarda.setBounds(41, 42, 184, 167);
 		internalFrame.getContentPane().add(guarda);
 		
 		JButton btnVOLVER = new JButton("CERRAR");
-		btnVOLVER.setBounds(45, 204, 84, 20);
+		btnVOLVER.setBounds(181, 291, 84, 20);
 		internalFrame.getContentPane().add(btnVOLVER);
 		btnVOLVER.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -95,11 +96,17 @@ public class Escanear extends JInternalFrame {
 		btnVOLVER.setFont(new Font("Tahoma", Font.ITALIC, 10));
 		btnVOLVER.setBackground(new Color(236, 217, 255));
 		
-		JLabel lblEscanear = new JLabel("ESCANEAR");
-		lblEscanear.setBounds(66, 10, 76, 22);
+		JLabel lblEscanear = new JLabel("CARGAR IMAGEN");
+		lblEscanear.setBounds(77, 10, 125, 22);
 		internalFrame.getContentPane().add(lblEscanear);
 		lblEscanear.setForeground(new Color(128, 0, 128));
 		lblEscanear.setFont(new Font("Yu Gothic", Font.BOLD, 13));
+		
+		JButton btnGuardarImg = new JButton("GUARDAR");
+		btnGuardarImg.setFont(new Font("Yu Gothic", Font.BOLD, 12));
+		btnGuardarImg.setBackground(new Color(236, 217, 255));
+		btnGuardarImg.setBounds(52, 251, 173, 22);
+		internalFrame.getContentPane().add(btnGuardarImg);
 		internalFrame.setVisible(true);
 		
 		btnSeleccionar.addActionListener(new ActionListener() {
