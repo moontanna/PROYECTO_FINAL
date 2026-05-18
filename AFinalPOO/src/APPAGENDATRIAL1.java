@@ -62,8 +62,8 @@ public class APPAGENDATRIAL1 {
 		menuBar.setBackground(new Color(255, 202, 228));
 		frame.setJMenuBar(menuBar);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("NOTAS");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
+		JMenuItem menuNotas = new JMenuItem("NOTAS");
+		menuNotas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Notas c = new Notas();
 				desktopPane.add(c);
@@ -93,6 +93,6 @@ public class APPAGENDATRIAL1 {
 			}
 		});
 		menuBar.add(mntmEscanear);
-		menuBar.add(mntmNewMenuItem);
+		menuBar.add(menuNotas);
 	}
 }

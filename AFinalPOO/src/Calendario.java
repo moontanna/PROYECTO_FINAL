@@ -3,6 +3,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,7 +25,9 @@ public class Calendario extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final JDesktopPane desktopPanecalandario = new JDesktopPane();
-
+	LocalDate hoy = LocalDate.now();
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -108,16 +112,20 @@ public class Calendario extends JInternalFrame {
 			comboBoxANIO.setBounds(318, 45, 52, 20);
 			contentPane.add(comboBoxANIO);
 			
+			comboBoxDIA.setSelectedIndex(hoy.getDayOfMonth()-3);
+			comboBoxMES.setSelectedIndex(hoy.getMonthValue()-1);
+			comboBoxANIO.setSelectedIndex(hoy.getYear()-2026);
+			
 			
 			JTextField textField = new JTextField();
 			textField.setBounds(111, 76, 153, 18);
 			contentPane.add(textField);
 			textField.setColumns(10);
 			
-			JComboBox comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"}));
-			comboBox.setBounds(97, 107, 75, 20);
-			contentPane.add(comboBox);
+			JComboBox comboHORA = new JComboBox();
+			comboHORA.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"}));
+			comboHORA.setBounds(97, 107, 75, 20);
+			contentPane.add(comboHORA);
 			
 			JLabel lblMinutos = new JLabel("MINUTOS");
 			lblMinutos.setFont(new Font("Yu Gothic", Font.BOLD, 11));
@@ -128,6 +136,16 @@ public class Calendario extends JInternalFrame {
 			comboBoxMINUTOS.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"}));
 			comboBoxMINUTOS.setBounds(247, 107, 63, 20);
 			contentPane.add(comboBoxMINUTOS);
+			
+			
+			LocalDateTime ahora = LocalDateTime.now();
+			comboHORA.setSelectedIndex(ahora.getHour());
+			comboBoxMINUTOS.setSelectedIndex(ahora.getMinute());
+			
+			
+	     
+			
+			
 			
 			JButton btnVOLVER = new JButton("CERRAR");
 			btnVOLVER.setFont(new Font("Tahoma", Font.ITALIC, 10));
@@ -141,27 +159,42 @@ public class Calendario extends JInternalFrame {
 			});
 			btnVOLVER.setBounds(342, 233, 84, 20);
 			contentPane.add(btnVOLVER);
+			desktopPanecalandario.setBackground(new Color(221, 238, 255));
+			desktopPanecalandario.setBounds(0, 0, 434, 270);
+			contentPane.add(desktopPanecalandario);
 			
 			JButton btnNOTAS = new JButton("NOTAS");
+			btnNOTAS.setBounds(10, 240, 149, 20);
+			desktopPanecalandario.add(btnNOTAS);
+			
+			JButton btnEscanear = new JButton("ESCANEAR");
+			btnEscanear.setBounds(10, 219, 149, 20);
+			desktopPanecalandario.add(btnEscanear);
+			
+			JButton btnGUARDAR = new JButton("GUARDAR");
+			btnGUARDAR.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					
+					
+				}
+			});
+			btnGUARDAR.setFont(new Font("Tahoma", Font.BOLD, 10));
+			btnGUARDAR.setBackground(new Color(236, 217, 255));
+			btnGUARDAR.setBounds(53, 161, 312, 20);
+			desktopPanecalandario.add(btnGUARDAR);
+			btnEscanear.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Escanear c = new Escanear();
+					
+					c.setVisible(true);   
+					
+				}
+			});
 			btnNOTAS.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
 			});
-			btnNOTAS.setBounds(53, 179, 149, 20);
-			contentPane.add(btnNOTAS);
-			
-			JButton btnEscanear = new JButton("ESCANEAR");
-			btnEscanear.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					
-				}
-			});
-			btnEscanear.setBounds(221, 179, 149, 20);
-			contentPane.add(btnEscanear);
-			desktopPanecalandario.setBackground(new Color(221, 238, 255));
-			desktopPanecalandario.setBounds(0, 0, 434, 270);
-			contentPane.add(desktopPanecalandario);
 
 			
 
