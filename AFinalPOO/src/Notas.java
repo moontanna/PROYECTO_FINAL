@@ -13,13 +13,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.JInternalFrame;
 
-public class Notas extends JFrame {
+public class Notas extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -36,6 +37,7 @@ public class Notas extends JFrame {
 		});
 	}
 
+	
 	/**
 	 * Create the frame.
 	 */
@@ -70,12 +72,20 @@ public class Notas extends JFrame {
 		btnBORRAR.setBounds(286, 170, 84, 20);
 		contentPane.add(btnBORRAR);
 		
-		JButton btnVOLVER = new JButton("VOLVER");
+		JButton btnVOLVER = new JButton("CERRAR");
+		btnVOLVER.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Notas.this.setVisible(false);
+			}
+
+			
+		});
 		btnVOLVER.setBackground(new Color(236, 217, 255));
 		btnVOLVER.setFont(new Font("Tahoma", Font.ITALIC, 10));
 		btnVOLVER.setBounds(342, 233, 84, 20);
 		contentPane.add(btnVOLVER);
-
+		Notas.this.setVisible(false);
 		
 	}
 }
