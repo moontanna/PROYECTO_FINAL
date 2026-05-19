@@ -3,6 +3,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -166,6 +170,18 @@ public class Calendario extends JInternalFrame {
 			btnVOLVER.setBackground(new Color(236, 217, 255));
 			
 			JButton btnSIGUIENTE = new JButton("SIGUIENTE");
+			btnSIGUIENTE.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					
+				        
+					    
+					    
+				     
+					
+					
+				}
+			});
 			btnSIGUIENTE.setBackground(new Color(240, 240, 240));
 			btnSIGUIENTE.setBounds(216, 158, 149, 20);
 			desktopPanecalandario.add(btnSIGUIENTE);
@@ -206,6 +222,7 @@ public class Calendario extends JInternalFrame {
 			});
 			btnANTERIOR.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
 				}
 			});
 

@@ -7,13 +7,25 @@ import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import src.CONECTA;
+
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Insets;
 
 public class APPAGENDATRIAL1 {
+	private CONECTA conexionBD = new CONECTA();
+	ResultSet R;
+	ResultSet RClientes;
 
+	
+	
 	private JFrame frame;
 
 	/**
@@ -32,6 +44,8 @@ public class APPAGENDATRIAL1 {
 		});
 	}
 
+	
+	
 	/**
 	 * Create the application.
 	 */
@@ -42,6 +56,11 @@ public class APPAGENDATRIAL1 {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
+	
+	
+	
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 911, 745);
