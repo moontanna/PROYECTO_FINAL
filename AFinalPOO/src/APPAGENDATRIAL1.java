@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import java.awt.Insets;
 
 public class APPAGENDATRIAL1 {
 
@@ -59,6 +60,7 @@ public class APPAGENDATRIAL1 {
 		lblfondo.setIcon(new ImageIcon("fondo/wllppr.png"));
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setMargin(new Insets(100, 0, 0, 0));
 		menuBar.setBackground(new Color(255, 202, 228));
 		frame.setJMenuBar(menuBar);
 		
