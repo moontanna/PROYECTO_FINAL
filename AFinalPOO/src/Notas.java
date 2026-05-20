@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -79,6 +80,15 @@ public class Notas extends JInternalFrame {
 		contentPane.add(btnGUARDAR);
 		
 		JButton btnANTERIOR = new JButton("ANTERIOR");
+		btnANTERIOR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String producto;
+				String precio;
+				
+				
+			}
+		});
 		btnANTERIOR.setBackground(new Color(236, 217, 255));
 		btnANTERIOR.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnANTERIOR.setBounds(60, 198, 104, 20);

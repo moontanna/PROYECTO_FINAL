@@ -46,13 +46,40 @@ public class CONECTA {
    		return myRs;
    		
    	}
+   public ResultSet getnotas() {
+  		
+  		try {
+  			Connection   MyConn = DriverManager.getConnection(url1, user, password);
+  		     Statement myStmt  = MyConn.createStatement();
+  	         myRs=  myStmt.executeQuery("Select * from notas)");
+  		} catch (SQLException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  		return myRs;
+  		
+  	}
+   
+   public ResultSet gettiempo() {
+  		
+  		try {
+  			Connection   MyConn = DriverManager.getConnection(url1, user, password);
+  		     Statement myStmt  = MyConn.createStatement();
+  	         myRs=  myStmt.executeQuery("Select * from tiempo)");
+  		} catch (SQLException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  		return myRs;
+  		
+  	}
 
-   public ResultSet getClientes(int id) {
+   public ResultSet getimagenes(int id) {
    		
    		try {
    			Connection   MyConn = DriverManager.getConnection(url1, user, password);
    		     Statement myStmt  = MyConn.createStatement();
-   	         myRs=  myStmt.executeQuery("SELECT * FROM CLIENTES WHERE idclientes ="+id);
+   	         myRs=  myStmt.executeQuery("SELECT * FROM imagenes WHERE idimagen ="+id);
    		} catch (SQLException e) {
    			// TODO Auto-generated catch block
    			e.printStackTrace();
@@ -95,23 +122,9 @@ public class CONECTA {
    			e.printStackTrace();
    			return false;
    	    }
-   	}
    	
-   	public boolean Actualiza(String nombre,int precio,String categoria, int existencia, int id) {
-   		 try {
-   			 Connection MyConn = DriverManager.getConnection(url1, user, password);
-   			 Statement myStmt  = MyConn.createStatement();
-   			 String sql = "Update productos set nombre='"+nombre+"',"
-   			 		+ " precio="+precio+",categoria='"+categoria+"',"
-   			 				+ "existencia="+existencia+" Where idProducto="+id;
-   		     myStmt.executeUpdate(sql);
-   		     return true;
-   		} catch (SQLException e) {
-   			// TODO Auto-generated catch block
-   			e.printStackTrace();
-   			return false;
-   		}
-   		 
+   	
+   
 
    	     
    	}
