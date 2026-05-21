@@ -83,8 +83,7 @@ public class Notas extends JInternalFrame {
 		btnANTERIOR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String producto;
-				String precio;
+				
 				
 				
 			}

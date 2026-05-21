@@ -8,7 +8,7 @@ public class CONECTA {
     private ResultSet myRs;
 
     public CONECTA() {
-   	 url1 = "\"postgresql://postgres.phxwmwznpuxrjhnftbid:[@Janaminecraftera1]@aws-1-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true\"";
+   	 url1 = "https://phxwmwznpuxrjhnftbid.supabase.co/rest/v1/";
         user = "root";
         password = "";	
    }
