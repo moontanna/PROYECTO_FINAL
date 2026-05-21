@@ -73,8 +73,7 @@ public class Calendario extends JInternalFrame {
 	//public class Calendarioo extends JFrame {
 	public Calendario() {
 		initialize1();
-		 
-		  R	 =conexionBD.getMyRs();
+		 //  R	 =conexionBD.getMyRs();
 	}
 	
 		private void initialize1() {
@@ -140,7 +139,7 @@ public class Calendario extends JInternalFrame {
 			
 			JComboBox comboHORA = new JComboBox();
 			comboHORA.setBackground(new Color(255, 255, 255));
-			comboHORA.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"}));
+			comboHORA.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"}));
 			comboHORA.setBounds(97, 107, 75, 20);
 			contentPane.add(comboHORA);
 			
@@ -157,7 +156,7 @@ public class Calendario extends JInternalFrame {
 			
 			
 			LocalDateTime ahora = LocalDateTime.now();
-			comboHORA.setSelectedIndex(ahora.getHour());
+			comboHORA.setSelectedIndex(ahora.getHour()-1);
 			comboBoxMINUTOS.setSelectedIndex(ahora.getMinute());
 			desktopPanecalandario.setBackground(new Color(221, 238, 255));
 			desktopPanecalandario.setBounds(0, 0, 434, 270);
@@ -183,22 +182,7 @@ public class Calendario extends JInternalFrame {
 			btnVOLVER.setFont(new Font("Tahoma", Font.ITALIC, 10));
 			btnVOLVER.setBackground(new Color(236, 217, 255));
 			
-			JButton btnSIGUIENTE = new JButton("SIGUIENTE");
-			btnSIGUIENTE.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					
-				        
-					    
-					    
-				     
-					
-					
-				}
-			});
-			btnSIGUIENTE.setBackground(new Color(240, 240, 240));
-			btnSIGUIENTE.setBounds(216, 158, 149, 20);
-			desktopPanecalandario.add(btnSIGUIENTE);
+
 			
 			JLabel lblEvento = new JLabel("EVENTO");
 			lblEvento.setBounds(53, 43, 63, 18);
@@ -216,9 +200,9 @@ public class Calendario extends JInternalFrame {
 			comboBoxDIA.setBackground(new Color(255, 255, 255));
 			comboBoxDIA.setBounds(81, 75, 49, 20);
 			desktopPanecalandario.add(comboBoxDIA);
-			comboBoxDIA.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6","7","8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+			comboBoxDIA.setModel(new DefaultComboBoxModel(new String[] {"0","1", "2", "3", "4", "5", "6","7","8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 			
-			comboBoxDIA.setSelectedIndex(hoy.getDayOfMonth()-3);
+			comboBoxDIA.setSelectedIndex(hoy.getDayOfMonth());
 			btnVOLVER.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Calendario.this.setVisible(false);
@@ -242,8 +226,8 @@ public class Calendario extends JInternalFrame {
 					
 					
 					String evento = textField.getText();
-					String dia = comboBoxDIA.getSelectedItem().toString();
-					String mes = comboBoxMES.getSelectedItem().toString();
+					int dia = (int) comboBoxDIA.getSelectedItem();
+					String mes = (String) comboBoxMES.getSelectedItem();
 					String anio = comboBoxANIO.getSelectedItem().toString();
 					String hora = comboHORA.getSelectedItem().toString();
 					String minutos = comboBoxMINUTOS.getSelectedItem().toString();
@@ -314,7 +298,56 @@ public class Calendario extends JInternalFrame {
 				}
 			});
 
-			
+			JButton btnSIGUIENTE = new JButton("SIGUIENTE");
+			btnSIGUIENTE.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+
+					        try {
+
+					            if(R.next()) {
+
+					                String evento = R.getString("evento");
+					                String dia = R.getString("dia");
+					                String mes = R.getString("mes");
+					                String anio = R.getString("anio");
+					                String hora = R.getString("hora");
+					                String minutos = R.getString("minutos");
+
+					                comboBoxDIA.setSelectedItem(dia);
+					                comboBoxMES.setSelectedItem(mes);
+					                comboBoxANIO.setSelectedItem(anio);
+					                comboHORA.setSelectedItem(hora);
+					                comboBoxMINUTOS.setSelectedItem(minutos);
+
+					                textField.setText(evento);
+
+					            }
+					            else {
+
+					                JOptionPane.showMessageDialog(null,
+					                        "Ya no hay más elementos");
+
+					            }
+
+					        } catch(SQLException ex) {
+
+					            ex.printStackTrace();
+
+					        }
+
+					    
+				        
+					    
+					    
+				     
+					
+					
+				}
+			});
+			btnSIGUIENTE.setBackground(new Color(240, 240, 240));
+			btnSIGUIENTE.setBounds(216, 158, 149, 20);
+			desktopPanecalandario.add(btnSIGUIENTE);
 
 	}
 

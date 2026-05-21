@@ -101,7 +101,7 @@ public class APPAGENDATRIAL1 {
 				Calendario c = new Calendario();
 				desktopPane.add(c);
 				c.setVisible(true);   
-				
+			
 			}
 		});
 		
