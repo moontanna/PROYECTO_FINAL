@@ -8,9 +8,9 @@ public class CONECTA {
     private ResultSet myRs;
 
     public CONECTA() {
-   	 url1 = "https://phxwmwznpuxrjhnftbid.supabase.co/rest/v1/";
-        user = "root";
-        password = "";	
+   	 url1 = "jjdbc:postgresql://db.phxwmwznpuxrjhnftbid.supabase.co:5432/PROYECTOfinal";
+        user = "postgres";
+        password = "@Janaminecraftera1";	
    }
    public String getUser() {
    	return user;
@@ -74,12 +74,12 @@ public class CONECTA {
   		
   	}
 
-   public ResultSet getimagenes(int id) {
+   public ResultSet getimagenes(int respuesta) {
    		
    		try {
    			Connection   MyConn = DriverManager.getConnection(url1, user, password);
    		     Statement myStmt  = MyConn.createStatement();
-   	         myRs=  myStmt.executeQuery("SELECT * FROM imagenes WHERE idimagen ="+id);
+   	         myRs=  myStmt.executeQuery("SELECT * FROM imagenes WHERE link ="+respuesta);
    		} catch (SQLException e) {
    			// TODO Auto-generated catch block
    			e.printStackTrace();
@@ -93,13 +93,13 @@ public class CONECTA {
    		this.myRs = myRs;
    	}
    	
-   	public boolean InsertaFecha(String nombre,int precio,String categoria, int existencia) {
+   	public boolean InsertaFecha(String dia,int mes, int anio) {
    		 try {
    			 Connection MyConn = DriverManager.getConnection(url1, user, password);
    			 Statement myStmt  = MyConn.createStatement();
-   			 String sql = "Insert into productos"
-   			 		+ "(nombre,precio,categoria,existencia) "
-   			 		+ "values('"+ nombre+"',"+precio+",'"+categoria+"',"+existencia+")";
+   			 String sql = "Insert into fecha"
+   			 		+ "(dia,mes,anio) "
+   			 	+ "values('"+ dia+"','"+mes+"','"+anio+"')";
    		     myStmt.executeUpdate(sql);
    		     return true;
    		} catch (SQLException e) {
@@ -128,4 +128,30 @@ public class CONECTA {
 
    	     
    	}
+   	public boolean Inserta(String evento, String dia, String mes,
+            String anio, String hora, String minutos) {
+
+try {
+
+Connection MyConn = DriverManager.getConnection(url1, user, password);
+
+	Statement myStmt = MyConn.createStatement();
+
+	String sql = "INSERT INTO fecha(evento,dia,mes,anio,hora,minutos) VALUES('"+ evento + "','"+ dia + "','"+ mes + "','"+ anio + "','"+ hora + "','"+ minutos + "')";
+
+	myStmt.executeUpdate(sql);
+
+	return true;
+
+	} catch (SQLException e) {
+
+		e.printStackTrace();
+		return false;
+}
+}
+	
+		
+		
+	
+	
    }

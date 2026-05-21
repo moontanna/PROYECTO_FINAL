@@ -1,11 +1,13 @@
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,8 +17,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import src.CONECTA;
+
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -27,14 +34,26 @@ public class Calendario extends JInternalFrame {
 	
 
 	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
 	private final JDesktopPane desktopPanecalandario = new JDesktopPane();
 	LocalDate hoy = LocalDate.now();
+	private CONECTA conexionBD = new CONECTA();
+	ResultSet R;
+	ResultSet RFecha;
+
+
 	
 	
 	/**
 	 * Launch the application.
 	 */
+	
+	
+	
+		
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -53,6 +72,15 @@ public class Calendario extends JInternalFrame {
 	 */
 	//public class Calendarioo extends JFrame {
 	public Calendario() {
+		initialize1();
+		 
+		  R	 =conexionBD.getMyRs();
+	}
+	
+		private void initialize1() {
+		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -123,7 +151,7 @@ public class Calendario extends JInternalFrame {
 			
 			JComboBox comboBoxMINUTOS = new JComboBox();
 			comboBoxMINUTOS.setBackground(new Color(255, 255, 255));
-			comboBoxMINUTOS.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"}));
+			comboBoxMINUTOS.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"}));
 			comboBoxMINUTOS.setBounds(247, 107, 63, 20);
 			contentPane.add(comboBoxMINUTOS);
 			
@@ -145,21 +173,7 @@ public class Calendario extends JInternalFrame {
 			btnBORRAR.setBounds(125, 226, 178, 20);
 			desktopPanecalandario.add(btnBORRAR);
 			
-			JButton btnGUARDAR = new JButton("GUARDAR");
-			btnGUARDAR.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					
-					
-				}
-			});
-			btnGUARDAR.setFont(new Font("Tahoma", Font.BOLD, 10));
-			btnGUARDAR.setBackground(new Color(236, 217, 255));
-			btnGUARDAR.setBounds(53, 199, 312, 20);
-			desktopPanecalandario.add(btnGUARDAR);
 			
-			
-	     
 			
 			
 			
@@ -202,7 +216,7 @@ public class Calendario extends JInternalFrame {
 			comboBoxDIA.setBackground(new Color(255, 255, 255));
 			comboBoxDIA.setBounds(81, 75, 49, 20);
 			desktopPanecalandario.add(comboBoxDIA);
-			comboBoxDIA.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+			comboBoxDIA.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6","7","8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 			
 			comboBoxDIA.setSelectedIndex(hoy.getDayOfMonth()-3);
 			btnVOLVER.addActionListener(new ActionListener() {
@@ -220,8 +234,82 @@ public class Calendario extends JInternalFrame {
 					
 				}
 			});
+			
+			
+			JButton btnGUARDAR = new JButton("GUARDAR");
+			btnGUARDAR.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					
+					String evento = textField.getText();
+					String dia = comboBoxDIA.getSelectedItem().toString();
+					String mes = comboBoxMES.getSelectedItem().toString();
+					String anio = comboBoxANIO.getSelectedItem().toString();
+					String hora = comboHORA.getSelectedItem().toString();
+					String minutos = comboBoxMINUTOS.getSelectedItem().toString();
+					
+					
+					 boolean r= conexionBD.Inserta(evento, dia, mes, anio, hora,minutos);
+					 if(r)
+						 JOptionPane.showMessageDialog(null, "Producto agregado");
+					 else 
+						 JOptionPane.showMessageDialog(null, "No se pudo agregar el producto");
+					
+					
+				}
+			});
+			btnGUARDAR.setFont(new Font("Tahoma", Font.BOLD, 10));
+			btnGUARDAR.setBackground(new Color(236, 217, 255));
+			btnGUARDAR.setBounds(53, 199, 312, 20);
+			desktopPanecalandario.add(btnGUARDAR);
+			
+			
+	     
+			
+			
+			
 			btnANTERIOR.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
+					String evento;
+					String dia;
+					String mes;
+					String anio;
+					String hora;
+					String minutos;
+					
+					
+					
+					
+					try {
+				
+						if(R.previous()) {
+							
+							evento = R.getString("evento");
+							dia = R.getString("dia");
+							mes = R.getString("mes");
+							anio = R.getString("anio");
+							hora = R.getString("hora");
+							minutos = R.getString("minutos");
+							
+							
+							
+							comboBoxDIA.setSelectedItem(dia);
+							comboBoxMES.setSelectedItem(mes);
+							comboBoxANIO.setSelectedItem(anio);
+							comboHORA.setSelectedItem(hora);
+							comboBoxMINUTOS.setSelectedItem(minutos);
+							
+							textField.setText(evento);
+							
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Ya no hay más elementos en la tabla");
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					
 				}
 			});
@@ -229,4 +317,6 @@ public class Calendario extends JInternalFrame {
 			
 
 	}
+
+
 }
