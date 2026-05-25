@@ -85,19 +85,19 @@ public class Notas extends JInternalFrame {
 		btnGUARDAR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-						String nota = textEscrito.getText();
+				String nota = textEscrito.getText();
 
-						boolean respuesta =conexionBD.guardarNota(nota);
+				boolean respuesta =conexionBD.guardarNota(nota);
 
-						if(respuesta) {
+				if(respuesta) {
 
-							JOptionPane.showMessageDialog(null,"Nota guardada");
+					JOptionPane.showMessageDialog(null,"Nota guardada");
 
-						} else {
+				} else {
 
-							JOptionPane.showMessageDialog(null,"Error al guardar");
+					JOptionPane.showMessageDialog(null,"Error al guardar");
 						
-					}//
+				}//
 					
 					
 			}
