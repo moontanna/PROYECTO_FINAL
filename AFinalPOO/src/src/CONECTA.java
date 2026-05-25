@@ -5,171 +5,119 @@ import java.sql.*;
 
 
 public class CONECTA {
-	private String url1 ;
-	private  String user;
-	private  String password ;
-    private ResultSet myRs;
+	
+	
 
-    public CONECTA() {
-   	 url1 = "jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres?user=postgres.phxwmwznpuxrjhnftbid&password=[@Janaminecraftera1]";
-        user = "postgres";
-        password = "@Janaminecraftera1";	
-   
-    
-    }
-   
-    
-    
-    
-    
-    
-   public String getUser() {
-   	return user;
-   }
+	
+			static String url1 = "jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres";
+            static String user = "postgres.phxwmwznpuxrjhnftbid";
+            static String password = "o7Sp7ifonr29L5D6";
+            public static Connection getConnection() throws Exception {
+        		Class.forName("org.postgresql.Driver");
+        		return DriverManager.getConnection(url1, user, password);
+        	}
 
-   public void setUser(String user) {
-   	this.user = user;
-   }
-   	
-   public ResultSet getMyRs() {
-   		
-   		try {
-   			Connection   MyConn = DriverManager.getConnection(url1, user, password);
-   		     Statement myStmt  = MyConn.createStatement();
-   	         myRs=  myStmt.executeQuery("select * from PROYECTOfinal");
-   	      
-   		} catch (SQLException e) {
-   			// TODO Auto-generated catch block
-   			e.printStackTrace();
-   		}
-   		return myRs;
-   	}
-   public ResultSet getFecha() {
-   		
-   		try {
-   			Connection   MyConn = DriverManager.getConnection(url1, user, password);
-   		     Statement myStmt  = MyConn.createStatement();
-   	         myRs=  myStmt.executeQuery("Select * from fecha");
-   		} catch (SQLException e) {
-   			// TODO Auto-generated catch block
-   			e.printStackTrace();
-   		}
-   		return myRs;
-   		
-   	}
-   public ResultSet getnotas() {
-  		
-  		try {
-  			Connection   MyConn = DriverManager.getConnection(url1, user, password);
-  		     Statement myStmt  = MyConn.createStatement();
-  	         myRs=  myStmt.executeQuery("Select * from notas");
-  		} catch (SQLException e) {
-  			// TODO Auto-generated catch block
-  			e.printStackTrace();
-  		}
-  		return myRs;
-  		
-  	}
-   
-   public ResultSet gettiempo() {
-  		
-  		try {
-  			Connection   MyConn = DriverManager.getConnection(url1, user, password);
-  		     Statement myStmt  = MyConn.createStatement();
-  	         myRs=  myStmt.executeQuery("Select * from tiempo");
-  		} catch (SQLException e) {
-  			// TODO Auto-generated catch block
-  			e.printStackTrace();
-  		}
-  		return myRs;
-  		
-  	}
+        	public static void main(String[] args) {
+        		try {
 
-   public ResultSet getimagenes(int respuesta) {
-	    try {
-	        Connection myConn = DriverManager.getConnection(url1, user, password);
+        			Connection MyConn = getConnection();
+        			Statement myStmt = MyConn.createStatement();
+        			ResultSet myRs = myStmt.executeQuery("select * from fecha");
+        			while(myRs.next()) {
+        				System.out.println(myRs.getString("evento"));
+        			}
 
-	        PreparedStatement ps = myConn.prepareStatement(
-	            "SELECT * FROM imagenes WHERE link = ?"
-	        );
-	        ps.setInt(1, respuesta);
-
-	        return ps.executeQuery(); 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return null;
-	    }
-	}
-   	
-   	public boolean InsertaFecha(int dia,int mes, int anio, String evento) {
-   		 try {
-   			 Connection MyConn = DriverManager.getConnection(url1, user, password);
-   			 Statement myStmt  = MyConn.createStatement();
-   			 String sql = "Insert into fecha"
-   			 		+ "dia,mes,anio,evento "
-   			 	+ "values('"+ evento+"','"+ dia+"','"+mes+"','"+anio+"')";
-   		     myStmt.executeUpdate(sql);
-   		     return true;
-   		} catch (SQLException e) {
-   			// TODO Auto-generated catch block
-   			e.printStackTrace();
-   			return false;
-   		}
-   	     
-   	}
-   	public boolean eliminaProducto(int id) {
-   		try {
-   			 Connection MyConn = DriverManager.getConnection(url1, user, password);
-   			 Statement myStmt  = MyConn.createStatement();
-   			
-   			 String sql = "Delete from productos Where idProducto="+id;
-   		     myStmt.executeUpdate(sql);
-   		     return true;
-   		} catch (SQLException e) {
-   			// TODO Auto-generated catch block
-   			e.printStackTrace();
-   			return false;
-   	    }
-   	
-   	
-   
-
-   	     
-   	}
-   	public boolean Inserta(String evento, String dia, String mes,
-            String anio, String hora, String minutos) {
-
-try {
-
-Connection MyConn = DriverManager.getConnection(url1, user, password);
-
-	Statement myStmt = MyConn.createStatement();
-
-	String sql = "INSERT INTO fecha(evento,dia,mes,anio,hora,minutos) VALUES('"+ evento + "','"+ dia + "','"+ mes + "','"+ anio + "','"+ hora + "','"+ minutos + "')";
-
-	myStmt.executeUpdate(sql);
-
-	return true;
-
-	} catch (SQLException e) {
-
-		e.printStackTrace();
-		return false;
-}
-}
+        		} catch(Exception e) {
+        			e.printStackTrace();
+        		}
+        	}
+		
 
 
+        	public ResultSet getFechas() {
+        	    try {
+        	        // Usamos las variables url1, user y password que ya definiste en la clase
+        	        Connection MyConn = DriverManager.getConnection(url1, user, password);
+        	        // IMPORTANTE: TYPE_SCROLL_INSENSITIVE para que funcione .previous()
+        	        Statement myStmt = MyConn.createStatement(
+        	            ResultSet.TYPE_SCROLL_INSENSITIVE, 
+        	            ResultSet.CONCUR_READ_ONLY
+        	        );
+        	        return myStmt.executeQuery("select * from fecha");
+        	    } catch (SQLException e) {
+        	        e.printStackTrace();
+        	        return null; // Si falla, devuelve null
+        	    }
+        	}
 
+	public boolean guardarFecha(String evento, int dia, String mes,
+			String anio, String hora, String minutos) {
 
+				try {
+					 String url1 = "jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres";
+			            String user = "postgres.phxwmwznpuxrjhnftbid";
+			            String password = "o7Sp7ifonr29L5D6";
+					Connection MyConn =DriverManager.getConnection(url1, user, password);
 
+					Statement myStmt = MyConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 
-	public boolean Inserta(String evento, int dia, String mes, String anio, String hora, String minutos) {
-		// TODO Auto-generated method stub
-		return false;
+					String sql = "Insert into fecha "
+							+ "(evento,dia,mes,anio,hora,minutos) "
+							+ "values('"+evento+"',"+dia+",'"
+							+ mes+"','"+anio+"','"
+							+ hora+"','"+minutos+"')";
+
+					myStmt.executeUpdate(sql);
+
+					return true;
+
+				} catch(SQLException e) {
+
+					e.printStackTrace();
+
+					return false;
+				}
+			}
+
+	public boolean guardarNota(String nota) {
+
+		try {
+
+			Connection MyConn = DriverManager.getConnection(url1,user,password);
+			Statement myStmt = MyConn.createStatement();
+			String sql = "insert into notas (texto) "
+			+ "values('"+nota+"')";
+			System.out.println(sql);
+			
+			myStmt.executeUpdate(sql);
+			return true;
+
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}}
+	
+	
+	
+		public ResultSet getNotas() {
+		    try {
+		        Connection MyConn = DriverManager.getConnection(url1, user, password);
+		        Statement myStmt = MyConn.createStatement(
+		            ResultSet.TYPE_SCROLL_INSENSITIVE, 
+		            ResultSet.CONCUR_READ_ONLY
+		        );
+		        
+		        // AL PEDIR "texto" PRIMERO, EL ÍNDICE 1 SIEMPRE SERÁ TU NOTA
+		        return myStmt.executeQuery("SELECT texto FROM notas"); 
+		        
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
 	}
 	
-		
-		
 	
 	
-   }
+	}
+
+	

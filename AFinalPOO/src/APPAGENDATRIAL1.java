@@ -51,6 +51,7 @@ public class APPAGENDATRIAL1 {
 	 */
 	public APPAGENDATRIAL1() {
 		initialize();
+		 R = conexionBD.getFechas();
 	}
 
 	/**
@@ -115,5 +116,9 @@ public class APPAGENDATRIAL1 {
 		});
 		menuBar.add(mntmEscanear);
 		menuBar.add(menuNotas);
+	
+	
+	
 	}
+	
 }

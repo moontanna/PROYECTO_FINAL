@@ -111,58 +111,72 @@ public class Escanear extends JInternalFrame {
 		
 		btnSeleccionar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        btnSeleccionarArchivoActionPerformed(e);
-		    }
+		    	
+
+		    			    JFileChooser fileChooser =
+		    			    new JFileChooser();
+
+		    			    int resultado =fileChooser.showOpenDialog(Escanear.this);
+
+		    			    if(resultado ==
+		    			       JFileChooser.APPROVE_OPTION) {
+
+		    			        File archivoSeleccionado =
+		    			        fileChooser.getSelectedFile();
+
+		    			        try {
+
+		    			            File carpeta =
+		    			            new File("imagenes");
+
+		    			            if(!carpeta.exists()) {
+
+		    			                carpeta.mkdir();
+		    			            }
+
+		    			            Path origen =
+		    			            archivoSeleccionado.toPath();
+
+		    			            String nombre =
+		    			            archivoSeleccionado.getName();
+
+		    			            Path destino =
+		    			            Paths.get("imagenes/" + nombre);
+
+		    			            Files.copy(
+		    			                origen,
+		    			                destino,
+		    			                StandardCopyOption.REPLACE_EXISTING
+		    			            );
+
+		    			            ImageIcon icon =
+		    			            new ImageIcon(destino.toString());
+
+		    			            guarda.setIcon(icon);
+
+		    			            JOptionPane.showMessageDialog(
+		    			            	    Escanear.this,
+		    			            	    "Imagen guardada"
+		    			            	
+		    			            );
+
+		    			        } catch(Exception e1) {
+
+		    			        	JOptionPane.showMessageDialog(
+		    			        		    null,
+		    			        		    e1.getMessage()
+		    			            );
+		    			        }
+		    			    }
+		    			}
+		    
 		});
 		
 		
 			  
 		
 	}
-		//Aquí se carga la imágen desde el botón
-		private void btnSeleccionarArchivoActionPerformed(java.awt.event.ActionEvent evt) {
-		    JFileChooser fileChooser = new JFileChooser();
-		    // Filtro para solo mostrar imágenes
-		    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "gif"));
-		    
-		    int resultado = fileChooser.showOpenDialog(this);
-		    
-		    if (resultado == JFileChooser.APPROVE_OPTION) {
-		        File archivoSeleccionado = fileChooser.getSelectedFile();
-		        try {
-		            ImageIcon icon = new ImageIcon(archivoSeleccionado.getAbsolutePath());
-		          
-					// Mostrar en etiqueta o botón
-		            guarda.setIcon(icon); 
-		        } catch (Exception ex) {
-		        	 Path origen = archivoSeleccionado.toPath();
 
-		             // Nombre del archivo
-		             String nombreImagen = archivoSeleccionado.getName();
-
-		             // Carpeta destino
-		             Path destino = Paths.get("imagenes/" + nombreImagen);
-
-		             // Copiar imagen a la carpeta imagenes
-		             try {
-						Files.copy(
-						     origen,
-						     destino,
-						     StandardCopyOption.REPLACE_EXISTING 
-						     );
-					       // Mostrar imagen guardada
-			            ImageIcon icon = new ImageIcon(destino.toString());
-
-			            guarda.setIcon(icon);
-
-			            JOptionPane.showMessageDialog(this, "Imagen guardada en la carpeta imagenes");
-
-			        } catch (Exception em) {
-
-			            JOptionPane.showMessageDialog(this,"Error: " + em.getMessage());
-					}
-		        }
-		    }
 		
 	}
-}
+
