@@ -212,8 +212,29 @@ public class Calendario extends JInternalFrame {
 			});
 			btnBORRAR.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-					
+					String evento = textField.getText();
+
+					int dia = Integer.parseInt(comboBoxDIA.getSelectedItem().toString());
+
+					String mes =comboBoxMES.getSelectedItem().toString();
+
+					String anio =comboBoxANIO.getSelectedItem().toString();
+
+					String hora =comboHORA.getSelectedItem().toString();
+
+					String minutos =comboBoxMINUTOS.getSelectedItem().toString();
+
+					boolean respuesta =conexionBD.borrarFecha(evento,dia,mes,anio,hora,minutos);
+
+					if(respuesta) {
+
+						JOptionPane.showMessageDialog(null,"Evento borrado");
+
+					} else {
+
+						JOptionPane.showMessageDialog(null,"No se borro");
+					}
+													
 				}
 			});
 			

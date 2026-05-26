@@ -78,6 +78,51 @@ public class CONECTA {
 					return false;
 				}
 			}
+	
+	public boolean borrarFecha(String evento,int dia, String mes,
+			String anio, String hora, String minutos) {
+	    try {
+	        String url1 = "jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:6543/postgres";
+	        String user = "postgres.phxwmwznpuxrjhnftbid";
+	        String password = "o7Sp7ifonr29L5D6";
+	        Connection MyConn = DriverManager.getConnection(url1, user, password);
+	        
+	        Statement myStmt = MyConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	        
+	        String sql = "DELETE FROM fecha "+ "WHERE evento='" + evento + "'"+ " AND dia=" + dia+ " AND mes='" + mes + "'" + " AND anio='" + anio + "'"
+	                + " AND hora='" + hora + "'"
+	                + " AND minutos='" + minutos + "'";
+	        
+	        
+	        myStmt.executeUpdate(sql);
+	        
+	        
+	        return true;
+	        
+	        
+	        
+	    } catch(SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	public boolean borrarNota(String nota) {
+	    try {
+	        Connection MyConn = DriverManager.getConnection(url1, user, password);
+	        Statement myStmt = MyConn.createStatement();
+	        
+	        String sql = "DELETE FROM notas "
+	                + "WHERE texto='" + nota + "'";
+	        
+	        myStmt.executeUpdate(sql);
+	        return true;
+	        
+	        
+	    } catch(SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 
 	public boolean guardarNota(String nota) {
 

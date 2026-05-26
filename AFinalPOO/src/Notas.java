@@ -57,7 +57,7 @@ public class Notas extends JInternalFrame {
 		
 		initComponents();
 	    CONECTA conexionBD = new CONECTA();
-	    this.R = conexionBD.getFechas();
+	 //   this.R = conexionBD.getFechas();
 		 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,6 +181,26 @@ public class Notas extends JInternalFrame {
 		btnSIGUIENTE.setBackground(new Color(236, 217, 255));
 		btnSIGUIENTE.setBounds(260, 198, 110, 20);
 		contentPane.add(btnSIGUIENTE);
+		
+		JButton btnBORRAR = new JButton("BORRAR");
+		btnBORRAR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nota = textEscrito.getText();
+
+				boolean respuesta = conexionBD.borrarNota(nota);
+
+				if(respuesta) {
+
+				    JOptionPane.showMessageDialog(null,"Nota borrada");
+
+				} else {
+
+				    JOptionPane.showMessageDialog(null,"Error al borrar");
+				}
+			}
+		});
+		btnBORRAR.setBounds(169, 237, 88, 22);
+		contentPane.add(btnBORRAR);
 		Notas.this.setVisible(false);
 		
 	}
